@@ -1,0 +1,212 @@
+{
+  "generated": "2026-10-12T12:44:30.470Z",
+  "methodology": "Existing Valhalla/OSM geometry cross-checked against an independently generated BRouter trekking route. This does not replace field verification.",
+  "thresholds": {
+    "maximumCoordinateStepM": 100,
+    "outAndBackSymmetryM": 8,
+    "independentRouterMaximumDifferenceM": 35,
+    "startClosureM": 8
+  },
+  "routes": [
+    {
+      "id": "blackberry",
+      "name": "Stevens Creek Trail 往返线",
+      "status": "road-geometry-cross-checked",
+      "checks": {
+        "coordinateContinuity": true,
+        "outAndBackSymmetry": true,
+        "independentRouterAgreement": true,
+        "noForbiddenBicycleTags": true,
+        "returnsToStart": true
+      },
+      "evidence": {
+        "existingEngine": "Valhalla/OpenStreetMap",
+        "independentEngine": "BRouter trekking/OpenStreetMap",
+        "brouterVersion": "BRouter-1.7.10",
+        "brouterOutboundM": 854,
+        "maximumCoordinateStepM": 73.3,
+        "outAndBackSymmetryMaxM": 0,
+        "crossEngineMaximumDifferenceM": 0.1,
+        "crossEngineP95DifferenceM": 0.1,
+        "crossEngineMeanDifferenceM": 0,
+        "crossEngineCoverageWithin35M": 1,
+        "forbiddenTags": []
+      }
+    },
+    {
+      "id": "los-gatos-creek",
+      "name": "Los Gatos Creek Trail 往返线",
+      "status": "road-geometry-cross-checked",
+      "checks": {
+        "coordinateContinuity": true,
+        "outAndBackSymmetry": true,
+        "independentRouterAgreement": true,
+        "noForbiddenBicycleTags": true,
+        "returnsToStart": true
+      },
+      "evidence": {
+        "existingEngine": "Valhalla/OpenStreetMap",
+        "independentEngine": "BRouter trekking/OpenStreetMap",
+        "brouterVersion": "BRouter-1.7.10",
+        "brouterOutboundM": 3140,
+        "maximumCoordinateStepM": 49.3,
+        "outAndBackSymmetryMaxM": 0,
+        "crossEngineMaximumDifferenceM": 18.2,
+        "crossEngineP95DifferenceM": 0.3,
+        "crossEngineMeanDifferenceM": 0.4,
+        "crossEngineCoverageWithin35M": 1,
+        "forbiddenTags": []
+      }
+    },
+    {
+      "id": "coyote-creek",
+      "name": "Coyote Creek Trail 往返线",
+      "status": "localized-router-difference",
+      "checks": {
+        "coordinateContinuity": true,
+        "outAndBackSymmetry": true,
+        "independentRouterAgreement": false,
+        "noForbiddenBicycleTags": true,
+        "returnsToStart": true
+      },
+      "evidence": {
+        "existingEngine": "Valhalla/OpenStreetMap",
+        "independentEngine": "BRouter trekking/OpenStreetMap",
+        "brouterVersion": "BRouter-1.7.10",
+        "brouterOutboundM": 10622,
+        "maximumCoordinateStepM": 49.7,
+        "outAndBackSymmetryMaxM": 0,
+        "crossEngineMaximumDifferenceM": 47.7,
+        "crossEngineP95DifferenceM": 0.1,
+        "crossEngineMeanDifferenceM": 0.3,
+        "crossEngineCoverageWithin35M": 0.997,
+        "forbiddenTags": []
+      }
+    },
+    {
+      "id": "sawyer-camp",
+      "name": "Sawyer Camp Trail 往返线",
+      "status": "road-geometry-cross-checked",
+      "checks": {
+        "coordinateContinuity": true,
+        "outAndBackSymmetry": true,
+        "independentRouterAgreement": true,
+        "noForbiddenBicycleTags": true,
+        "returnsToStart": true
+      },
+      "evidence": {
+        "existingEngine": "Valhalla/OpenStreetMap",
+        "independentEngine": "BRouter trekking/OpenStreetMap",
+        "brouterVersion": "BRouter-1.7.10",
+        "brouterOutboundM": 9671,
+        "maximumCoordinateStepM": 48.7,
+        "outAndBackSymmetryMaxM": 0,
+        "crossEngineMaximumDifferenceM": 1.2,
+        "crossEngineP95DifferenceM": 0.3,
+        "crossEngineMeanDifferenceM": 0,
+        "crossEngineCoverageWithin35M": 1,
+        "forbiddenTags": []
+      }
+    },
+    {
+      "id": "portola-loop",
+      "name": "Alpine Trail 往返线",
+      "status": "road-geometry-cross-checked",
+      "checks": {
+        "coordinateContinuity": true,
+        "outAndBackSymmetry": true,
+        "independentRouterAgreement": true,
+        "noForbiddenBicycleTags": true,
+        "returnsToStart": true
+      },
+      "evidence": {
+        "existingEngine": "Valhalla/OpenStreetMap",
+        "independentEngine": "BRouter trekking/OpenStreetMap",
+        "brouterVersion": "BRouter-1.7.10",
+        "brouterOutboundM": 7974,
+        "maximumCoordinateStepM": 49.8,
+        "outAndBackSymmetryMaxM": 0,
+        "crossEngineMaximumDifferenceM": 32.2,
+        "crossEngineP95DifferenceM": 21.9,
+        "crossEngineMeanDifferenceM": 4.6,
+        "crossEngineCoverageWithin35M": 1,
+        "forbiddenTags": []
+      }
+    },
+    {
+      "id": "west-cliff",
+      "name": "West Cliff–Wilder 海岸往返线",
+      "status": "road-geometry-cross-checked",
+      "checks": {
+        "coordinateContinuity": true,
+        "outAndBackSymmetry": true,
+        "independentRouterAgreement": true,
+        "noForbiddenBicycleTags": true,
+        "returnsToStart": true
+      },
+      "evidence": {
+        "existingEngine": "Valhalla/OpenStreetMap",
+        "independentEngine": "BRouter trekking/OpenStreetMap",
+        "brouterVersion": "BRouter-1.7.10",
+        "brouterOutboundM": 6138,
+        "maximumCoordinateStepM": 45,
+        "outAndBackSymmetryMaxM": 0,
+        "crossEngineMaximumDifferenceM": 0.2,
+        "crossEngineP95DifferenceM": 0,
+        "crossEngineMeanDifferenceM": 0,
+        "crossEngineCoverageWithin35M": 1,
+        "forbiddenTags": []
+      }
+    },
+    {
+      "id": "alameda-loop",
+      "name": "Crown Beach–Bay Farm Bridge 往返线",
+      "status": "road-geometry-cross-checked",
+      "checks": {
+        "coordinateContinuity": true,
+        "outAndBackSymmetry": true,
+        "independentRouterAgreement": true,
+        "noForbiddenBicycleTags": true,
+        "returnsToStart": true
+      },
+      "evidence": {
+        "existingEngine": "Valhalla/OpenStreetMap",
+        "independentEngine": "BRouter trekking/OpenStreetMap",
+        "brouterVersion": "BRouter-1.7.10",
+        "brouterOutboundM": 3095,
+        "maximumCoordinateStepM": 44.6,
+        "outAndBackSymmetryMaxM": 0,
+        "crossEngineMaximumDifferenceM": 0,
+        "crossEngineP95DifferenceM": 0,
+        "crossEngineMeanDifferenceM": 0,
+        "crossEngineCoverageWithin35M": 1,
+        "forbiddenTags": []
+      }
+    },
+    {
+      "id": "iron-horse",
+      "name": "Iron Horse Trail 纵走往返线",
+      "status": "road-geometry-cross-checked",
+      "checks": {
+        "coordinateContinuity": true,
+        "outAndBackSymmetry": true,
+        "independentRouterAgreement": true,
+        "noForbiddenBicycleTags": true,
+        "returnsToStart": true
+      },
+      "evidence": {
+        "existingEngine": "Valhalla/OpenStreetMap",
+        "independentEngine": "BRouter trekking/OpenStreetMap",
+        "brouterVersion": "BRouter-1.7.10",
+        "brouterOutboundM": 10023,
+        "maximumCoordinateStepM": 45,
+        "outAndBackSymmetryMaxM": 0,
+        "crossEngineMaximumDifferenceM": 0,
+        "crossEngineP95DifferenceM": 0,
+        "crossEngineMeanDifferenceM": 0,
+        "crossEngineCoverageWithin35M": 1,
+        "forbiddenTags": []
+      }
+    }
+  ]
+}

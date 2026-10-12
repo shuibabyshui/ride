@@ -1,70 +1,352 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#17382f" />
-  <meta name="description" content="从 20020 Rodrigues Ave 出发并回家的 Cupertino 骑行环线。" />
-  <title>Rodrigues Rides</title>
-  <link rel="preconnect" href="https://unpkg.com" crossorigin />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-  <link rel="stylesheet" href="styles-v2.css" />
-  <link rel="stylesheet" href="styles-v3.css" />
-</head>
-<body>
-  <header class="topbar">
-    <a class="brand" href="#route-regnart"><span>↗</span> Rodrigues Rides</a>
-    <div class="top-actions" aria-label="路线筛选">
-      <button class="filter active" type="button" data-filter="all" aria-pressed="true">全部</button>
-      <button class="filter" type="button" data-filter="quiet" aria-pressed="false">少车</button>
-      <button class="filter" type="button" data-filter="scenic" aria-pressed="false">风景</button>
-    </div>
-  </header>
-  <div class="filter-status" role="status" aria-live="polite">全部 · 4 条路线</div>
-  <main class="route-deck" aria-label="骑行路线卡片">
-    <article id="route-regnart" class="route-card" data-route="regnart" data-tags="quiet scenic">
-      <div class="card-head"><div><p class="kicker">01 · 溪边 / 公园 / 平路</p><h1>Regnart Creek 环线</h1></div><div class="distance">9 <small>km</small></div></div>
-      <div class="metrics"><span>35–45 分钟</span><span>轻松</span><span>机动车少</span></div>
-      <div class="map" id="map-regnart" aria-label="Regnart Creek 路线地图"></div>
-      <p class="summary">Civic Center → Regnart Creek Trail → Wilson Park → Creekside Park → McClellan → 回家</p>
-      <div class="actions"><a class="map-button apple" data-provider="apple" data-route="regnart">Apple 地图</a><a class="map-button google" data-provider="google" data-route="regnart">Google 地图</a><label class="photo-button">＋ 批量照片<input class="photo-input" type="file" accept="image/*" multiple data-route="regnart" /></label></div>
-      <p class="photo-status" aria-live="polite"></p>
-    </article>
-    <article id="route-blackberry" class="route-card" data-route="blackberry" data-tags="quiet scenic">
-      <div class="card-head"><div><p class="kicker">02 · 树荫 / 溪流 / 自然保护区</p><h2>Blackberry Farm 自然线</h2></div><div class="distance">11 <small>km</small></div></div>
-      <div class="metrics"><span>45–55 分钟</span><span>轻松</span><span>车最少</span></div>
-      <div class="map" id="map-blackberry" aria-label="Blackberry Farm 路线地图"></div>
-      <p class="summary">McClellan 隔离车道 → McClellan Ranch → Stevens Creek Trail → Blackberry Farm → 回家</p>
-      <p class="notice">Nature Trail 的短土路禁止骑车，请留在允许骑行的主步道。</p>
-      <div class="actions"><a class="map-button apple" data-provider="apple" data-route="blackberry">Apple 地图</a><a class="map-button google" data-provider="google" data-route="blackberry">Google 地图</a><label class="photo-button">＋ 批量照片<input class="photo-input" type="file" accept="image/*" multiple data-route="blackberry" /></label></div>
-      <p class="photo-status" aria-live="polite"></p>
-    </article>
-    <article id="route-apple" class="route-card" data-route="apple" data-tags="scenic">
-      <div class="card-head"><div><p class="kicker">03 · Trail / Apple Park / 建筑</p><h2>Apple Park 环线</h2></div><div class="distance">约 7 <small>km</small></div></div>
-      <div class="metrics"><span>15–25 分钟</span><span>轻松</span><span>部分有车</span></div>
-      <div class="map" id="map-apple" aria-label="Apple Park 路线地图"></div>
-      <p class="summary">Wilson Park → Creekside Park → Apple Park Visitor Center → Portal Park → 回家</p>
-      <p class="notice">尽量避开工作日 Apple 上下班时间；Tantau 与 Pruneridge 附近车流稍多。</p>
-      <div class="actions"><a class="map-button apple" data-provider="apple" data-route="apple">Apple 地图</a><a class="map-button google" data-provider="google" data-route="apple">Google 地图</a><label class="photo-button">＋ 批量照片<input class="photo-input" type="file" accept="image/*" multiple data-route="apple" /></label></div>
-      <p class="photo-status" aria-live="polite"></p>
-    </article>
-    <article id="route-mary" class="route-card" data-route="mary" data-tags="quiet">
-      <div class="card-head"><div><p class="kicker">04 · 公园 / 校园 / 自行车桥</p><h2>Lawson–Mary Avenue 环线</h2></div><div class="distance">10 <small>km</small></div></div>
-      <div class="metrics"><span>45–55 分钟</span><span>轻松</span><span>住宅区为主</span></div>
-      <div class="map" id="map-mary" aria-label="Lawson–Mary Avenue 路线地图"></div>
-      <p class="summary">Memorial Park → Lawson Bikeway → Mary Avenue Bridge 南端 → 回家</p>
-      <p class="notice">完整骑过 Mary Avenue Bridge 时，整圈约 13–14 公里。</p>
-      <div class="actions"><a class="map-button apple" data-provider="apple" data-route="mary">Apple 地图</a><a class="map-button google" data-provider="google" data-route="mary">Google 地图</a><label class="photo-button">＋ 批量照片<input class="photo-input" type="file" accept="image/*" multiple data-route="mary" /></label></div>
-      <p class="photo-status" aria-live="polite"></p>
-    </article>
-  </main>
-  <dialog class="photo-lightbox" aria-label="骑行照片大图">
-    <button class="lightbox-close" type="button" aria-label="关闭大图">×</button>
-    <img alt="骑行照片大图" />
-    <p></p>
-  </dialog>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="https://unpkg.com/exifr@7.1.3/dist/lite.umd.js"></script>
-  <script src="app-v6.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#102923" />
+    <meta
+      name="description"
+      content="湾区真实道路级骑行路线探索与 GPX 导航。"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><circle cx=%2232%22 cy=%2232%22 r=%2230%22 fill=%22%23123c33%22/><path d=%22M17 40l10-20 7 20 9-16 5 16%22 fill=%22none%22 stroke=%22%23ed6943%22 stroke-width=%226%22 stroke-linecap=%22round%22/></svg>"
+    />
+    <title>Rodrigues Rides · 湾区骑行</title>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#">RODRIGUES <span>RIDES</span></a>
+      <div class="top-actions">
+        <span class="sample-badge">V2 · 8 条地图核验路线</span
+        ><button id="admin-open" class="icon-button" type="button">管理</button>
+      </div>
+    </header>
+    <main class="explorer">
+      <aside class="route-panel" aria-label="路线详情">
+        <button
+          id="sheet-close"
+          class="sheet-close"
+          type="button"
+          aria-label="收起路线详情"
+        >
+          <span></span><b>收起地图 ↑</b>
+        </button>
+        <div class="panel-head">
+          <p id="detail-kicker" class="kicker">CUPERTINO · 铺装往返</p>
+          <h1 id="detail-title">Stevens Creek Trail<br />往返线</h1>
+          <p id="detail-description" class="lede">
+            从 Blackberry Farm 公共停车区进入 Stevens Creek Trail，沿市府标注的自行车/行人共享步道骑到 McClellan Road 后原路返回。
+          </p>
+        </div>
+        <div class="metrics" aria-label="路线指标">
+          <div>
+            <strong id="distance">1.72</strong><span>公里</span
+            ><small>道路级轨迹</small>
+          </div>
+          <div>
+            <strong id="climb">—</strong><span>米</span><small>待实骑记录</small>
+          </div>
+          <div>
+            <strong id="duration">10–15</strong><span>分钟</span><small>参考 15 km/h</small>
+          </div>
+          <div>
+            <strong id="difficulty">轻松</strong><span>难度</span><small>地图估算</small>
+          </div>
+        </div>
+        <section class="route-facts">
+          <div class="route-recommendation">
+            <span class="fact-icon recommend">★</span>
+            <p><b>为什么推荐</b><span id="detail-recommendation">溪谷树荫和连续共享步道，适合轻松恢复骑。</span></p>
+          </div>
+          <div>
+            <span class="fact-icon highlights"></span>
+            <p><b>沿途特点</b><span id="detail-highlights">Stevens Creek · Blackberry Farm · McClellan Ranch</span></p>
+          </div>
+          <div>
+            <span class="fact-icon start"></span>
+            <p><b>骑行起终点</b><span id="detail-start">Blackberry Farm 公共停车区旁步道入口</span></p>
+          </div>
+          <div>
+            <span class="fact-icon parking"></span>
+            <p><b>停车</b><span id="detail-parking">Blackberry Farm 公共停车区；满位时按市府指引使用指定溢出停车</span></p>
+          </div>
+          <div>
+            <span class="fact-icon surface"></span>
+            <p><b>路线类型</b><span id="detail-surface">铺装共享步道往返；到折返点后沿原路返回</span></p>
+          </div>
+        </section>
+        <section class="verification">
+          <div>
+            <span class="status-dot"></span><b id="detail-verification">地图与官方通行资料已核对 · 待实骑复核</b>
+          </div>
+          <p id="detail-review-note">
+            轨迹由自行车道路路由生成，并对照 Cupertino 市府 Blackberry Farm 与 McClellan Ranch 步道图。路线为往返线，不再伪装成环线。
+          </p>
+        </section>
+        <section class="navigation-block">
+          <h2>① 开车到骑行起点</h2>
+          <p class="navigation-step-note">这里从你当前所在位置出发是正确的：先把车开到路线停车点。</p>
+          <div class="button-row">
+            <a
+              id="apple-drive"
+              class="button secondary"
+              target="_blank"
+              rel="noopener"
+              >Apple Maps 驾车</a
+            ><a
+              id="google-drive"
+              class="button secondary"
+              target="_blank"
+              rel="noopener"
+              >Google Maps 驾车</a
+            >
+          </div>
+          <h3>② 从固定起点开始骑行</h3>
+          <p class="navigation-step-note">GPX 的第一点是地图上的绿色起点，不是你当前的位置。</p>
+          <button id="ride-from-start" class="button primary" type="button">从绿色起点打开骑行地图</button>
+          <a id="detail-gpx" class="button secondary gpx-download" href="blackberry-v2.gpx" download>下载固定起点 GPX</a>
+          <details class="osmand-help" open>
+            <summary>OsmAnd 仍显示「从：我的位置」？</summary>
+            <p>这是 OsmAnd 自动加入的接驳起点，不是 GPX 轨迹的一部分。不要直接点「开始」：</p>
+            <ol>
+              <li>点导航页顶部的「从：我的位置」。</li>
+              <li>选择「在地图上选择」或搜索下面的固定起点坐标。</li>
+              <li>将起点改成绿色骑行起点，再选择「跟随轨迹」。</li>
+            </ol>
+            <div class="route-start-copy-row">
+              <code id="osmand-start-coordinate">37.317705, -122.060421</code>
+              <button id="copy-route-start" type="button">复制起点坐标</button>
+            </div>
+            <p class="osmand-setting">也可在「设置 → 跟随轨迹 → 导航到」中选择「轨迹起点」。<a href="https://www.osmand.net/docs/user/navigation/setup/gpx-navigation/?current-os=ios" target="_blank" rel="noopener">OsmAnd 官方说明</a></p>
+          </details>
+          <p class="nav-limit">
+            Apple Maps / Google Maps 只负责驾车接驳。导入 GPX 后若 App 仍显示“当前位置 → 骑行起点”，那是 App 自动添加的接驳段，不属于 GPX；到达绿色起点后选择「从此处开始」或「跟随轨迹」。不要让 OSM 把 1,000 多个轨迹点重新规划成逐站导航，否则可能显示十几个小时。到蓝色折返点后沿原路返回。
+          </p>
+        </section>
+        <section id="photos-section" class="photos-section">
+          <div class="section-title">
+            <div>
+              <p class="kicker">RIDE MEMORIES</p>
+              <h2>路线照片</h2>
+            </div>
+            <label class="upload-button admin-only"
+              >批量上传<input
+                id="photo-input"
+                type="file"
+                accept="image/*"
+                multiple
+            /></label>
+          </div>
+          <div id="photo-gallery" class="photo-gallery">
+            <p class="empty-photos">这条路线还没有公开照片。</p>
+          </div>
+          <p id="photo-status" class="photo-status" aria-live="polite"></p>
+        </section>
+      </aside>
+      <section class="map-stage" aria-label="湾区骑行主地图">
+        <div id="map" aria-label="Stevens Creek Trail 往返骑行轨迹"></div>
+        <nav class="mobile-mode-switch" aria-label="手机浏览模式">
+          <button class="active" data-mobile-mode="explore" type="button">
+            <i class="ri-compass-3-line" aria-hidden="true"></i>探索
+          </button>
+          <button data-mobile-mode="ride" type="button" disabled>
+            <i class="ri-riding-line" aria-hidden="true"></i>骑行
+          </button>
+        </nav>
+        <div class="ride-route-summary" aria-hidden="true">
+          <strong>Stevens Creek Trail 往返线</strong>
+          <span>1.72 km · 爬升待实骑 · 地图已核验</span>
+        </div>
+        <button
+          id="mobile-filter-open"
+          class="mobile-filter-open"
+          type="button"
+        >
+          <i class="ri-equalizer-2-line" aria-hidden="true"></i>
+          筛选路线
+        </button>
+        <button
+          id="routes-open"
+          class="routes-open"
+          type="button"
+          aria-expanded="false"
+        >
+          路线总览 <b>8</b>
+        </button>
+        <aside
+          id="routes-browser"
+          class="routes-browser"
+          aria-label="湾区路线总览"
+          aria-hidden="true"
+          inert
+        >
+          <div class="browser-head">
+            <div>
+              <p class="kicker">BAY AREA OVERVIEW</p>
+              <h2>路线总览</h2>
+            </div>
+            <button id="routes-close" type="button" aria-label="关闭路线总览">
+              ×
+            </button>
+          </div>
+          <div class="overview-filters">
+            <label
+              >区域<select id="overview-area">
+                <option value="all">全部</option>
+                <option value="Cupertino">Cupertino</option>
+                <option value="South Bay">南湾</option>
+                <option value="Peninsula">半岛</option>
+                <option value="Santa Cruz">Santa Cruz</option>
+                <option value="East Bay">东湾</option>
+              </select></label
+            >
+            <label
+              >距离<select id="overview-distance">
+                <option value="all">全部</option>
+                <option value="daily">日常</option>
+                <option value="medium">中距离</option>
+                <option value="long">50–100 km</option>
+              </select></label
+            >
+          </div>
+          <p class="candidate-note">
+            全部路线已通过轨迹连续性和官方骑行权限资料复核；仍需实骑确认路况。停车未核验的路线不会提供驾车按钮。
+          </p>
+          <div id="overview-list" class="overview-list">
+            <p class="overview-loading">正在载入路线…</p>
+          </div>
+          <section class="rebuild-section" aria-labelledby="rebuild-title">
+            <div class="rebuild-heading">
+              <p class="kicker">LOCAL ROUTES</p>
+              <h3 id="rebuild-title">Cupertino 旧路线与环湖计划</h3>
+            </div>
+            <p class="candidate-note">旧路线和历史照片仍保留；因原轨迹含私人起点或精度不足，正在以公共起点重建。以下卡片不冒充可导航路线。</p>
+            <div id="rebuild-list" class="rebuild-list"></div>
+          </section>
+        </aside>
+        <div class="map-toolbar" role="group" aria-label="底图切换">
+          <button data-layer="outdoor" class="active" type="button">户外</button
+          ><button data-layer="street" type="button">地图</button
+          ><button data-layer="satellite" type="button">卫星</button>
+        </div>
+        <button
+          id="fullscreen"
+          class="fullscreen-button"
+          type="button"
+          aria-label="全屏查看地图"
+        >
+          ⛶ <span>全屏</span>
+        </button>
+        <button id="show-all-routes" class="show-all-routes" type="button" aria-hidden="true" tabindex="-1">
+          <i class="ri-route-line" aria-hidden="true"></i>显示全部
+        </button>
+        <button id="locate-me" class="locate-me" type="button" aria-label="定位到我的位置" aria-hidden="true" tabindex="-1">
+          <i class="ri-focus-3-line" aria-hidden="true"></i>
+          <span>我的位置</span>
+        </button>
+        <div class="map-legend">
+          <span
+            ><i class="line-key"></i
+            ><b id="route-legend-label">全部路线</b></span
+          ><span><i class="arrow-key">➤</i>方向</span>
+        </div>
+        <div id="network-warning" class="network-warning" hidden>
+          地图底图暂时无法载入。轨迹和 GPX 仍可使用，请检查网络后重试。
+        </div>
+        <div
+          id="mobile-route-carousel"
+          class="mobile-route-carousel"
+          aria-label="路线卡片"
+        ></div>
+        <nav class="ride-action-bar" aria-label="骑行操作" aria-hidden="true">
+          <a id="mobile-apple-drive" target="_blank" rel="noopener">
+            <i class="ri-parking-box-line" aria-hidden="true"></i>
+            从当前位置开车
+          </a>
+          <a id="mobile-google-drive" target="_blank" rel="noopener">
+            <i class="ri-car-line" aria-hidden="true"></i>
+            Google 驾车
+          </a>
+          <a id="mobile-gpx" href="blackberry-v2.gpx" download>
+            <i class="ri-download-cloud-2-line" aria-hidden="true"></i>
+            固定起点 GPX
+          </a>
+        </nav>
+        <button
+          id="sheet-toggle"
+          class="sheet-toggle"
+          type="button"
+          aria-expanded="false"
+        >
+          <span></span><b>Stevens Creek Trail 往返线</b
+          ><small>1.72 km · 爬升待实骑</small>
+        </button>
+      </section>
+    </main>
+    <dialog id="manual-dialog" class="small-dialog">
+      <h2>这张照片没有 GPS</h2>
+      <p>
+        关闭窗口后，请在地图上点选照片拍摄位置。我们不会使用你的当前位置代替。
+      </p>
+      <div class="dialog-actions">
+        <button id="manual-cancel" class="button secondary" type="button">
+          取消这张</button
+        ><button id="manual-choose" class="button primary" type="button">
+          在地图上选位置
+        </button>
+      </div>
+    </dialog>
+    <dialog id="photo-dialog" class="photo-dialog" aria-label="骑行照片">
+      <button class="dialog-close" type="button" aria-label="关闭">×</button
+      ><img alt="骑行照片大图" />
+      <div>
+        <p></p>
+        <button class="delete-photo" type="button">删除照片</button>
+      </div>
+    </dialog>
+    <dialog id="admin-dialog" class="small-dialog">
+      <button class="dialog-close" type="button" aria-label="关闭">×</button>
+      <form id="admin-form">
+        <p class="kicker">OWNER ACCESS</p>
+        <h2>照片管理</h2>
+        <p>公开浏览无需登录。上传和删除操作会在服务器验证管理员身份。</p>
+        <label
+          >用户名<input
+            name="username"
+            value="ride"
+            autocomplete="username"
+            required /></label
+        ><label
+          >密码<input
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required /></label
+        ><button class="button primary" type="submit">进入管理模式</button>
+        <p id="admin-status" role="status"></p>
+      </form>
+    </dialog>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      crossorigin=""
+    ></script>
+    <script src="https://unpkg.com/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.js"></script>
+    <script src="https://unpkg.com/exifr@7.1.3/dist/lite.umd.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
